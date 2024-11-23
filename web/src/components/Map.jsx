@@ -11,7 +11,7 @@ import { GeolocationContext } from '../contexts/GeolocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 
 
-const MapView = ({ geojsonData }) => {
+const MapView = ({ theme, isOpenHeatmap }) => {
 	const {location} = useContext(GeolocationContext)
 	console.log("location", location)
   
