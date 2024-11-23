@@ -56,11 +56,11 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		strings: {
 			title: 'Enable geolocation',
 		},
-    showCompass: true,
-    locateOptions: {
-      setView: false,
-      enableHighAccuracy: true,
-    },
+		showCompass: true,
+		locateOptions: {
+			setView: false,
+			enableHighAccuracy: true,
+		},
 		onActivate: (a) => {
 			console.log('onActivate', a)
 		}, // callback before engine starts retrieving locations
