@@ -20,6 +20,15 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	const { location } = useContext(GeolocationContext)
 	console.log('location', location)
 
+	if (!location) {
+		return (
+			<div>
+				<h1>Geolocation</h1>
+				<p>{'Loading...'}</p>
+			</div>
+		)
+	}
+
 	const addressPoints = geoJsonData['features'].map((el) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
 	})
@@ -28,6 +37,9 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	const [safePoints, setSafePoints] = useState([])
 	const [dangerousPoints, setDangerousPoints] = useState([])
 
+	const [source, setSource] = useState([location.latitude, location.longitude])
+	const [destination, setDestination] = useState([45.5088, -73.554])
+
 	const fetchWaypointsList = () => {
 		fetch(api, {
 			method: 'POST',
@@ -35,8 +47,8 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				source: [45.5017, -73.5673],
-				destination: [45.5088, -73.554],
+				source: source,
+				destination: destination,
 			}),
 		})
 			.then((response) => response.json())
@@ -66,20 +78,11 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		}, // callback before engine starts retrieving locations
 	}
 
-	if (!location) {
-		return (
-			<div>
-				<h1>Geolocation</h1>
-				<p>{'Loading...'}</p>
-			</div>
-		)
-	}
-
 	return (
 		<MapContainer
 			preferCanvas={true}
 			renderer={L.canvas()}
-			center={[location.latitude, location.longitude]}
+			center={source}
 			zoom={20}
 			style={{ height: '100%', width: '100%' }}
 		>
@@ -111,7 +114,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 					lineJoin: 'round',
 				}}
 			></Polyline>
-			<Marker position={[45.5088, -73.554]}></Marker>
+			<Marker position={destination}></Marker>
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'

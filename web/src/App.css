@@ -21,7 +21,7 @@
 .themeContainer {
 	display: flex;
 	gap: 10;
-	flex-direction: row;
+	flex-direction: column;
 	position: absolute;
 	top: 0;
 	right: 0; 
