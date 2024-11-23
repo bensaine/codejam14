@@ -8,11 +8,11 @@ import MapView from './components/Map.jsx'
 function App() {
 
   return (
-    <>
-    <MapView></MapView>
-    Showing Map View
-      <PWABadge />
-    </>
+    <div style={{width: '90vw', height: '100vh'}}>
+        <MapView></MapView>
+        Showing Map View
+        <PWABadge />
+    </div>
   )
 }
 
