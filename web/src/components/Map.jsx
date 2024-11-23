@@ -1,5 +1,11 @@
-import React from 'react'
-import { MapContainer, TileLayer, GeoJSON, Marker } from 'react-leaflet'
+import { useState, useEffect } from 'react'
+import {
+	MapContainer,
+	TileLayer,
+	GeoJSON,
+	Marker,
+	Polyline,
+} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import L, { geoJson } from 'leaflet'
@@ -7,13 +13,36 @@ import 'leaflet-defaulticon-compatibility'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 import geoJsonData from '../assets/actes-criminels.json'
 
-import RoutingMachine from './RoutingControl'
-
 const MapView = ({ theme }) => {
 	const position = [45.514, -73.573]
 	const addressPoints = geoJsonData['features'].map((el) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
 	})
+	const api = 'http://127.0.0.1:5000/route'
+
+	const [waypointsList, setWaypointsList] = useState([])
+
+	const fetchWaypointsList = () => {
+		fetch(api, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				source: [45.5017, -73.5673],
+				destination: [45.5088, -73.554],
+			}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				setWaypointsList(data)
+			})
+			.catch((error) => console.error('Error fetching waypoints:', error))
+	}
+
+	useEffect(() => {
+		fetchWaypointsList()
+	}, [])
 
 	return (
 		<MapContainer
@@ -29,7 +58,8 @@ const MapView = ({ theme }) => {
 				latitudeExtractor={(m) => m[0]}
 				intensityExtractor={(m) => parseFloat(m[2])}
 			/>
-			<RoutingMachine></RoutingMachine>
+			{/* <RoutingMachine></RoutingMachine> */}
+			<Polyline positions={waypointsList}></Polyline>
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
