@@ -17,7 +17,7 @@ import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
-	const { sourceLocation } = useContext(LocationContext)
+	const { sourceLocation, destinationLocation } = useContext(LocationContext)
 	console.log('location', sourceLocation)
 
 	if (!location) {
@@ -37,9 +37,6 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	const [safePoints, setSafePoints] = useState([])
 	const [dangerousPoints, setDangerousPoints] = useState([])
 
-	const [source, setSource] = useState([location.latitude, location.longitude])
-	const [destination, setDestination] = useState([45.5088, -73.554])
-
 	const fetchWaypointsList = () => {
 		fetch(api, {
 			method: 'POST',
@@ -47,8 +44,8 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				source: source,
-				destination: destination,
+				source: sourceLocation,
+				destination: destinationLocation,
 			}),
 		})
 			.then((response) => response.json())
@@ -118,7 +115,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 					lineJoin: 'round',
 				}}
 			></Polyline>
-			<Marker position={destination}></Marker>
+			<Marker position={destinationLocation}></Marker>
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
