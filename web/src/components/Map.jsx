@@ -5,12 +5,14 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import L, { geoJson } from "leaflet";
 import "leaflet-defaulticon-compatibility";
 import {HeatmapLayer} from "react-leaflet-heatmap-layer-v3";
-import { addressPoints } from '../assets/realworld.10000'
-import geoJsonData from "../assets/actes-criminels_short.json";
+import geoJsonData from "../assets/actes-criminels.json";
 const MapView = ({ geojsonData }) => {
   const position = [45.514, -73.573];
-  const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-
+  const url = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
+  const addressPoints = geoJsonData['features'].map(el => {
+    return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
+  }
+  )
   return (
     <MapContainer
       preferCanvas={true}
@@ -19,18 +21,15 @@ const MapView = ({ geojsonData }) => {
       zoom={11}
       style={{ height: "100%", width: "100%" }}
     >
-      <GeoJSON data={geoJsonData}> </GeoJSON>
       <Marker position={position} />
-<HeatmapLayer
-            fitBoundsOnLoad
-            fitBoundsOnUpdate
+        <HeatmapLayer
             points={addressPoints}
             longitudeExtractor={m => m[1]}
             latitudeExtractor={m => m[0]}
             intensityExtractor={m => parseFloat(m[2])} />
       <TileLayer
-        url={url}
         maxZoom={20}
+        url={'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'}
         minZoom={0}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
