@@ -54,7 +54,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		},
     showCompass: true,
     locateOptions: {
-      setView: true,
+      setView: false,
       enableHighAccuracy: true,
     },
 		onActivate: (a) => {
