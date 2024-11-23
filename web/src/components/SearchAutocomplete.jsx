@@ -1,12 +1,12 @@
 import { useContext, useEffect, useMemo } from 'react'
-import { GeolocationContext } from '../contexts/GeolocationContext'
+import { LocationContext } from '../contexts/LocationContext'
 import { Search } from 'lucide-react'
 import './SearchAutocomplete.css'
 
 const SearchAutocomplete = (props) => {
 	const { getPlacePredictions } = props
 
-	const { location } = useContext(GeolocationContext)
+	const { location } = useContext(LocationContext)
 	console.log(location)
 
 	const bounds = useMemo(() => {
