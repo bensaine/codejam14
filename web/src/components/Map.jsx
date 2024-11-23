@@ -18,7 +18,7 @@ const MapView = ({ geojsonData }) => {
       preferCanvas={true}
       renderer={L.canvas()}
       center={position}
-      zoom={11}
+      zoom={20}
       style={{ height: "100%", width: "100%" }}
     >
       <Marker position={position} />

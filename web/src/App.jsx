@@ -6,14 +6,13 @@ import './App.css'
 import MapView from './components/Map.jsx'
 
 function App() {
-
-  return (
-    <div style={{width: '90vw', height: '100vh'}}>
-        <MapView></MapView>
-        Showing Map View
-        <PWABadge />
-    </div>
-  )
+	return (
+		<div style={{ width: '100vw', height: '100vh' }}>
+			<MapView></MapView>
+			Showing Map View
+			<PWABadge />
+		</div>
+	)
 }
 
 export default App
