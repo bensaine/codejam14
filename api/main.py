@@ -1,10 +1,11 @@
 from flask import Flask, jsonify, request, Response
 from json import loads
 from route import get_path
-
+from flask_cors import CORS, cross_origin
 DATA = "./data/"
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 # load data from json file
 with open(DATA + "crimes.json") as f:
     crimes_data = loads(f.read())
