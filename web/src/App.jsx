@@ -6,14 +6,19 @@ import { Map } from 'lucide-react'
 
 function App() {
 	const [theme, setTheme] = useState('rastertiles/voyager')
-	const [toggleHeatmap, setToggleHeatmap] = useState(false)
+	const [isOpenHeatmap, setIsOpenHeatmap] = useState(true)
 	return (
 		<div className="container">
 			<div className="mapContainer">
-				<MapView theme={theme} />
+				<MapView theme={theme} isOpenHeatmap={isOpenHeatmap} />
 			</div>
 			<div className="themeContainer">
-				<Map onClick={() => setToggleHeatmap(!toggleHeatmap)}></Map>
+				<Map
+					className="mapToggle"
+					onClick={() => {
+						setIsOpenHeatmap(!isOpenHeatmap)
+					}}
+				></Map>
 				<Theme setTheme={setTheme} />
 			</div>
 		</div>

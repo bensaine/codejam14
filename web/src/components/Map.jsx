@@ -13,7 +13,7 @@ import 'leaflet-defaulticon-compatibility'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 import geoJsonData from '../assets/actes-criminels.json'
 
-const MapView = ({ theme }) => {
+const MapView = ({ theme, isOpenHeatmap }) => {
 	const position = [45.514, -73.573]
 	const addressPoints = geoJsonData['features'].map((el) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
@@ -54,12 +54,15 @@ const MapView = ({ theme }) => {
 			zoom={20}
 			style={{ height: '100%', width: '100%' }}
 		>
-			<HeatmapLayer
-				points={addressPoints}
-				longitudeExtractor={(m) => m[1]}
-				latitudeExtractor={(m) => m[0]}
-				intensityExtractor={(m) => parseFloat(m[2])}
-			/>
+			{isOpenHeatmap && (
+				<HeatmapLayer
+					points={addressPoints}
+					longitudeExtractor={(m) => m[1]}
+					latitudeExtractor={(m) => m[0]}
+					intensityExtractor={(m) => parseFloat(m[2])}
+				/>
+			)}
+
 			<Polyline positions={dangerousPoints}></Polyline>
 			<Polyline positions={safePoints}></Polyline>
 			<TileLayer
