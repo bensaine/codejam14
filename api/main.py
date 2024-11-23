@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, Response
+from flask_cors import CORS, cross_origin
 from json import loads
 from route import get_path
-from flask_cors import CORS, cross_origin
 DATA = "./data/"
 app = Flask(__name__)
 cors = CORS(app)
