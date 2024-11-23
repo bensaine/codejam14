@@ -1,5 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { MapContainer, TileLayer, GeoJSON, Marker, Polyline } from 'react-leaflet'
+import {
+	MapContainer,
+	TileLayer,
+	GeoJSON,
+	Marker,
+	Polyline,
+} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import L, { geoJson } from 'leaflet'
@@ -10,11 +16,10 @@ import LocateControl from './LocateControl.jsx'
 import { GeolocationContext } from '../contexts/GeolocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 
-
 const MapView = ({ theme, isOpenHeatmap }) => {
-	const {location} = useContext(GeolocationContext)
-	console.log("location", location)
-  
+	const { location } = useContext(GeolocationContext)
+	console.log('location', location)
+
 	const addressPoints = geoJsonData['features'].map((el) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
 	})
@@ -45,7 +50,6 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	useEffect(() => {
 		fetchWaypointsList()
 	}, [])
-
 
 	// Setup LocateControl options
 	const locateOptions = {
@@ -89,8 +93,25 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				/>
 			)}
 
-			<Polyline positions={dangerousPoints}></Polyline>
-			<Polyline positions={safePoints}></Polyline>
+			<Polyline
+				positions={dangerousPoints}
+				pathOptions={{
+					color: 'purple',
+					weight: '7',
+					lineCap: 'round',
+					lineJoin: 'round',
+				}}
+			></Polyline>
+			<Polyline
+				positions={safePoints}
+				pathOptions={{
+					color: 'teal',
+					weight: '7',
+					lineCap: 'round',
+					lineJoin: 'round',
+				}}
+			></Polyline>
+			<Marker position={[45.5088, -73.554]}></Marker>
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
