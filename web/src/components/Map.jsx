@@ -1,26 +1,58 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { MapContainer, TileLayer, GeoJSON, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import L, { geoJson } from 'leaflet'
 import 'leaflet-defaulticon-compatibility'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
-import geoJsonData from '../assets/actes-criminels.json'
+// import geoJsonData from '../assets/actes-criminels.json'
+import LocateControl from './LocateControl.jsx'
+import { GeolocationContext } from '../contexts/GeolocationContext.jsx'
+
 const MapView = ({ geojsonData }) => {
-	const position = [45.514, -73.573]
-	const url = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
-	const addressPoints = geoJsonData['features'].map((el) => {
-		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
-	})
+	const {location} = useContext(GeolocationContext)
+	console.log("location", location)
+	const addressPoints = [
+		[45.56778, -73.626778, 0.3],
+		[45.519122, -73.685928, 0.3],
+		[45.602873, -73.635117, 0.3],
+	]
+
+
+	// Setup LocateControl options
+	const locateOptions = {
+		position: 'topright',
+		strings: {
+			title: 'Enable geolocation',
+		},
+    showCompass: true,
+    locateOptions: {
+      setView: true,
+      enableHighAccuracy: true,
+    },
+		onActivate: (a) => {
+			console.log('onActivate', a)
+		}, // callback before engine starts retrieving locations
+	}
+
+	if (!location) {
+		return (
+			<div>
+				<h1>Geolocation</h1>
+				<p>{'Loading...'}</p>
+			</div>
+		)
+	}
+
 	return (
 		<MapContainer
 			preferCanvas={true}
 			renderer={L.canvas()}
-			center={position}
+			center={[location.latitude, location.longitude]}
 			zoom={20}
 			style={{ height: '100%', width: '100%' }}
 		>
-			<Marker position={position} />
+			<LocateControl options={locateOptions} startDirectly={true} />
 			<HeatmapLayer
 				points={addressPoints}
 				longitudeExtractor={(m) => m[1]}
