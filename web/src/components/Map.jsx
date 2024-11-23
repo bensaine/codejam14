@@ -20,14 +20,11 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	const { sourceLocation, destinationLocation } = useContext(LocationContext)
 	console.log('location', sourceLocation)
 
-	if (!location) {
-		return (
-			<div>
-				<h1>Geolocation</h1>
-				<p>{'Loading...'}</p>
-			</div>
-		)
-	}
+	useEffect(() => {
+		if (!sourceLocation || !destinationLocation) return
+
+		fetchWaypointsList(sourceLocation, destinationLocation)
+	}, [destinationLocation])
 
 	const addressPoints = geoJsonData['features'].map((el) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 1]
@@ -37,15 +34,15 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	const [safePoints, setSafePoints] = useState([])
 	const [dangerousPoints, setDangerousPoints] = useState([])
 
-	const fetchWaypointsList = () => {
+	const fetchWaypointsList = (src, dest) => {
 		fetch(api, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				source: sourceLocation,
-				destination: destinationLocation,
+				source: src,
+				destination: dest,
 			}),
 		})
 			.then((response) => response.json())
@@ -55,10 +52,6 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 			})
 			.catch((error) => console.error('Error fetching waypoints:', error))
 	}
-
-	useEffect(() => {
-		fetchWaypointsList()
-	}, [])
 
 	// Setup LocateControl options
 	const locateOptions = {
@@ -73,6 +66,15 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		onActivate: (a) => {
 			console.log('onActivate', a)
 		}, // callback before engine starts retrieving locations
+	}
+
+	if (!sourceLocation) {
+		return (
+			<div>
+				<h1>Geolocation</h1>
+				<p>{'Loading...'}</p>
+			</div>
+		)
 	}
 
 	return (
@@ -97,25 +99,29 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				/>
 			)}
 
-			<Polyline
-				positions={dangerousPoints}
-				pathOptions={{
-					color: 'purple',
-					weight: '7',
-					lineCap: 'round',
-					lineJoin: 'round',
-				}}
-			></Polyline>
-			<Polyline
-				positions={safePoints}
-				pathOptions={{
-					color: 'teal',
-					weight: '7',
-					lineCap: 'round',
-					lineJoin: 'round',
-				}}
-			></Polyline>
-			<Marker position={destinationLocation}></Marker>
+			{safePoints && (
+				<Polyline
+					positions={dangerousPoints}
+					pathOptions={{
+						color: 'purple',
+						weight: '7',
+						lineCap: 'round',
+						lineJoin: 'round',
+					}}
+				></Polyline>
+			)}
+			{safePoints && (
+				<Polyline
+					positions={safePoints}
+					pathOptions={{
+						color: 'teal',
+						weight: '7',
+						lineCap: 'round',
+						lineJoin: 'round',
+					}}
+				></Polyline>
+			)}
+			{destinationLocation && <Marker position={destinationLocation}></Marker>}
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
