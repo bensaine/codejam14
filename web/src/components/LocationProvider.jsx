@@ -38,7 +38,13 @@ const LocationProvider = ({ children }) => {
 
 	return (
 		<LocationContext.Provider
-			value={{ sourceLocation, destinationLocation, error }}
+			value={{
+				sourceLocation,
+				setSourceLocation,
+				destinationLocation,
+				setDestinationLocation,
+				error,
+			}}
 		>
 			{children}
 		</LocationContext.Provider>
