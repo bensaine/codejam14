@@ -6,8 +6,10 @@ import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocomplet
 const SearchPlaces = () => {
 	const { placesService, placePredictions, getPlacePredictions } =
 		usePlacesService({
-			apiKey: import.meta.env.GOOGLE_MAPS_API_KEY,
+			apiKey: '',
 		})
+
+	console.log(import.meta.env.GOOGLE_MAPS_API_KEY)
 	const [selectedPlace, setSelectedPlace] = useState(null)
 
 	useEffect(() => {

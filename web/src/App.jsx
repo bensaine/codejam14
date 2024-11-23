@@ -10,7 +10,7 @@ import GeolocationProvider from './components/GeolocationProvider.jsx'
 
 function App() {
 	return (
-		<APIProvider apiKey={import.meta.env.GOOGLE_MAPS_API_KEY}>
+		<APIProvider apiKey="">
 			<GeolocationProvider>
 				<div style={{ width: '100vw', height: '100vh' }}>
 					<div
