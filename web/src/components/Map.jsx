@@ -21,7 +21,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	console.log('location', location)
 
 	const addressPoints = geoJsonData['features'].map((el) => {
-		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
+		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 1]
 	})
 	const api = 'http://127.0.0.1:5000/route'
 
@@ -90,6 +90,10 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 					longitudeExtractor={(m) => m[1]}
 					latitudeExtractor={(m) => m[0]}
 					intensityExtractor={(m) => parseFloat(m[2])}
+          blur={20}
+          maxZoom={100}
+          radius={20}
+          gradient={{ 0.2: 'yellow', 0.3: 'orange', 0.5: "#ff00004f" }}
 				/>
 			)}
 
