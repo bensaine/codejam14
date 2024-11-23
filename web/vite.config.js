@@ -14,9 +14,9 @@ export default defineConfig({
     },
 
     manifest: {
-      name: 'vite-project',
-      short_name: 'vite-project',
-      description: 'vite-project',
+      name: 'StrideSafe',
+      short_name: 'StrideSafe',
+      description: 'StrideSafe',
       theme_color: '#ffffff',
     },
 

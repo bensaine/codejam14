@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { MapContainer, TileLayer, GeoJSON, Marker } from 'react-leaflet'
+import React, { useContext, useState, useEffect } from 'react'
+import { MapContainer, TileLayer, GeoJSON, Marker, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import L, { geoJson } from 'leaflet'
@@ -8,15 +8,43 @@ import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 // import geoJsonData from '../assets/actes-criminels.json'
 import LocateControl from './LocateControl.jsx'
 import { GeolocationContext } from '../contexts/GeolocationContext.jsx'
+import geoJsonData from '../assets/actes-criminels.json'
+
 
 const MapView = ({ geojsonData }) => {
 	const {location} = useContext(GeolocationContext)
 	console.log("location", location)
-	const addressPoints = [
-		[45.56778, -73.626778, 0.3],
-		[45.519122, -73.685928, 0.3],
-		[45.602873, -73.635117, 0.3],
-	]
+  
+	const addressPoints = geoJsonData['features'].map((el) => {
+		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
+	})
+	const api = 'http://127.0.0.1:5000/route'
+
+	const [safePoints, setSafePoints] = useState([])
+	const [dangerousPoints, setDangerousPoints] = useState([])
+
+	const fetchWaypointsList = () => {
+		fetch(api, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				source: [45.5017, -73.5673],
+				destination: [45.5088, -73.554],
+			}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				setDangerousPoints(data.dangerous)
+				setSafePoints(data.safe)
+			})
+			.catch((error) => console.error('Error fetching waypoints:', error))
+	}
+
+	useEffect(() => {
+		fetchWaypointsList()
+	}, [])
 
 
 	// Setup LocateControl options
@@ -52,15 +80,19 @@ const MapView = ({ geojsonData }) => {
 			style={{ height: '100%', width: '100%' }}
 		>
 			<LocateControl options={locateOptions} startDirectly={true} />
-			<HeatmapLayer
-				points={addressPoints}
-				longitudeExtractor={(m) => m[1]}
-				latitudeExtractor={(m) => m[0]}
-				intensityExtractor={(m) => parseFloat(m[2])}
-			/>
+			{isOpenHeatmap && (
+				<HeatmapLayer
+					points={addressPoints}
+					longitudeExtractor={(m) => m[1]}
+					latitudeExtractor={(m) => m[0]}
+					intensityExtractor={(m) => parseFloat(m[2])}
+				/>
+			)}
 
+			<Polyline positions={dangerousPoints}></Polyline>
+			<Polyline positions={safePoints}></Polyline>
 			<TileLayer
-				url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
 			/>
 		</MapContainer>
