@@ -13,12 +13,12 @@ import 'leaflet-defaulticon-compatibility'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 // import geoJsonData from '../assets/actes-criminels.json'
 import LocateControl from './LocateControl.jsx'
-import { GeolocationContext } from '../contexts/GeolocationContext.jsx'
+import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
-	const { location } = useContext(GeolocationContext)
-	console.log('location', location)
+	const { sourceLocation } = useContext(LocationContext)
+	console.log('location', sourceLocation)
 
 	if (!location) {
 		return (
@@ -30,7 +30,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	}
 
 	const addressPoints = geoJsonData['features'].map((el) => {
-		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
+		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 1]
 	})
 	const api = 'http://127.0.0.1:5000/route'
 
@@ -82,7 +82,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		<MapContainer
 			preferCanvas={true}
 			renderer={L.canvas()}
-			center={source}
+			center={sourceLocation}
 			zoom={20}
 			style={{ height: '100%', width: '100%' }}
 		>
@@ -93,6 +93,10 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 					longitudeExtractor={(m) => m[1]}
 					latitudeExtractor={(m) => m[0]}
 					intensityExtractor={(m) => parseFloat(m[2])}
+					blur={20}
+					maxZoom={100}
+					radius={20}
+					gradient={{ 0.2: 'yellow', 0.3: 'orange', 0.5: '#ff00004f' }}
 				/>
 			)}
 

@@ -2,8 +2,11 @@ import SearchAutocomplete from './SearchAutocomplete.jsx'
 import { useEffect, useState } from 'react'
 import PlaceOverview from './PlaceOverview.jsx'
 import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocompleteService'
+import { useContext } from 'react'
+import { LocationContext } from '../contexts/LocationContext'
 
 const SearchPlaces = () => {
+	const { setDestinationLocation } = useContext(LocationContext)
 	const { placesService, placePredictions, getPlacePredictions } =
 		usePlacesService({
 			apiKey: '',
@@ -50,7 +53,13 @@ const SearchPlaces = () => {
 							<div>
 								<button onClick={() => setSelectedPlace(null)}>Back</button>
 							</div>
-							<PlaceOverview details={selectedPlace} />
+							<PlaceOverview
+								details={selectedPlace}
+								onStartRoute={({ lat, lng }) => {
+									console.log('Starting route to:', lat(), lng())
+									setDestinationLocation([lat(), lng()])
+								}}
+							/>
 						</div>
 					)}
 				</div>

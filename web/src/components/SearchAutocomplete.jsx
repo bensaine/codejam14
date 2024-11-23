@@ -1,19 +1,19 @@
 import { useContext, useEffect, useMemo } from 'react'
-import { GeolocationContext } from '../contexts/GeolocationContext'
+import { LocationContext } from '../contexts/LocationContext'
 import { Search } from 'lucide-react'
 import './SearchAutocomplete.css'
 
 const SearchAutocomplete = (props) => {
 	const { getPlacePredictions } = props
 
-	const { location } = useContext(GeolocationContext)
-	console.log(location)
+	const { sourceLocation } = useContext(LocationContext)
+	console.log(sourceLocation)
 
 	const bounds = useMemo(() => {
-		if (!location) return {}
+		if (!sourceLocation) return {}
 		const radius = 30000 // 30 km
-		const lat = location.latitude
-		const lng = location.longitude
+		const lat = sourceLocation[0]
+		const lng = sourceLocation[1]
 
 		return {
 			south: lat - radius / 111111,
@@ -21,7 +21,7 @@ const SearchAutocomplete = (props) => {
 			north: lat + radius / 111111,
 			east: lng + radius / 111111,
 		}
-	}, [location])
+	}, [sourceLocation])
 
 	return (
 		<div style={styles.searchbox}>
@@ -31,7 +31,7 @@ const SearchAutocomplete = (props) => {
 				onChange={(evt) => {
 					getPlacePredictions({
 						input: evt.target.value,
-						locationBias: { lat: location.latitude, lng: location.longitude },
+						locationBias: { lat: sourceLocation[0], lng: sourceLocation[1] },
 						locationRestriction: bounds,
 					})
 				}}

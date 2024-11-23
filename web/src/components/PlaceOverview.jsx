@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PlaceOverview = ({ details }) => {
+const PlaceOverview = ({ details, onStartRoute }) => {
 	if (!details) {
 		return <div>Loading...</div>
 	}
@@ -70,6 +70,7 @@ const PlaceOverview = ({ details }) => {
 					</a>
 				)}
 			</div>
+            <button onClick={() => onStartRoute(details.geometry.location)}>Start Route</button>
 		</div>
 	)
 }

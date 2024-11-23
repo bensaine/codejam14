@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { GeolocationContext } from '../contexts/GeolocationContext'
+import { LocationContext } from '../contexts/LocationContext'
 
-const GeolocationProvider = ({ children }) => {
-	const [location, setLocation] = useState(null)
+const LocationProvider = ({ children }) => {
+	const [sourceLocation, setSourceLocation] = useState(null)
+	const [destinationLocation, setDestinationLocation] = useState(null)
 	const [error, setError] = useState(null)
 
 	useEffect(() => {
@@ -15,11 +16,7 @@ const GeolocationProvider = ({ children }) => {
 
 		const watchId = navigator.geolocation.watchPosition(
 			(position) => {
-				setLocation({
-					latitude: position.coords.latitude,
-					longitude: position.coords.longitude,
-					accuracy: position.coords.accuracy,
-				})
+				setSourceLocation([position.coords.latitude, position.coords.longitude])
 				setError(null)
 			},
 			(err) => {
@@ -36,10 +33,18 @@ const GeolocationProvider = ({ children }) => {
 	}, [])
 
 	return (
-		<GeolocationContext.Provider value={{ location, error }}>
+		<LocationContext.Provider
+			value={{
+				sourceLocation,
+				setSourceLocation,
+				destinationLocation,
+				setDestinationLocation,
+				error,
+			}}
+		>
 			{children}
-		</GeolocationContext.Provider>
+		</LocationContext.Provider>
 	)
 }
 
-export default GeolocationProvider
+export default LocationProvider
