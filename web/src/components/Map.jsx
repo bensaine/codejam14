@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react'
-import {
-	MapContainer,
-	TileLayer,
-	GeoJSON,
-	Marker,
-	Polyline,
-} from 'react-leaflet'
+import React, { useContext, useState, useEffect } from 'react'
+import { MapContainer, TileLayer, GeoJSON, Marker, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import L, { geoJson } from 'leaflet'
 import 'leaflet-defaulticon-compatibility'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
+// import geoJsonData from '../assets/actes-criminels.json'
+import LocateControl from './LocateControl.jsx'
+import { GeolocationContext } from '../contexts/GeolocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 
-const MapView = ({ theme, isOpenHeatmap }) => {
-	const position = [45.514, -73.573]
+
+const MapView = ({ geojsonData }) => {
+	const {location} = useContext(GeolocationContext)
+	console.log("location", location)
+  
 	const addressPoints = geoJsonData['features'].map((el) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 0.3]
 	})
@@ -46,14 +46,40 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		fetchWaypointsList()
 	}, [])
 
+
+	// Setup LocateControl options
+	const locateOptions = {
+		strings: {
+			title: 'Enable geolocation',
+		},
+    showCompass: true,
+    locateOptions: {
+      setView: true,
+      enableHighAccuracy: true,
+    },
+		onActivate: (a) => {
+			console.log('onActivate', a)
+		}, // callback before engine starts retrieving locations
+	}
+
+	if (!location) {
+		return (
+			<div>
+				<h1>Geolocation</h1>
+				<p>{'Loading...'}</p>
+			</div>
+		)
+	}
+
 	return (
 		<MapContainer
 			preferCanvas={true}
 			renderer={L.canvas()}
-			center={position}
+			center={[location.latitude, location.longitude]}
 			zoom={20}
 			style={{ height: '100%', width: '100%' }}
 		>
+			<LocateControl options={locateOptions} startDirectly={true} />
 			{isOpenHeatmap && (
 				<HeatmapLayer
 					points={addressPoints}
