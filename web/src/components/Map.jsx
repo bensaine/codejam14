@@ -79,7 +79,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		<MapContainer
 			preferCanvas={true}
 			renderer={L.canvas()}
-			center={[sourceLocation.latitude, sourceLocation.longitude]}
+			center={sourceLocation}
 			zoom={20}
 			style={{ height: '100%', width: '100%' }}
 		>

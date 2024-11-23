@@ -16,11 +16,7 @@ const LocationProvider = ({ children }) => {
 
 		const watchId = navigator.geolocation.watchPosition(
 			(position) => {
-				setSourceLocation({
-					latitude: position.coords.latitude,
-					longitude: position.coords.longitude,
-					accuracy: position.coords.accuracy,
-				})
+				setSourceLocation([position.coords.latitude, position.coords.longitude])
 				setError(null)
 			},
 			(err) => {

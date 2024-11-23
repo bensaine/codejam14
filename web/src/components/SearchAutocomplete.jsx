@@ -12,8 +12,8 @@ const SearchAutocomplete = (props) => {
 	const bounds = useMemo(() => {
 		if (!sourceLocation) return {}
 		const radius = 30000 // 30 km
-		const lat = sourceLocation.latitude
-		const lng = sourceLocation.longitude
+		const lat = sourceLocation[0]
+		const lng = sourceLocation[1]
 
 		return {
 			south: lat - radius / 111111,
@@ -31,7 +31,7 @@ const SearchAutocomplete = (props) => {
 				onChange={(evt) => {
 					getPlacePredictions({
 						input: evt.target.value,
-						locationBias: { lat: sourceLocation.latitude, lng: sourceLocation.longitude },
+						locationBias: { lat: sourceLocation[0], lng: sourceLocation[1] },
 						locationRestriction: bounds,
 					})
 				}}
