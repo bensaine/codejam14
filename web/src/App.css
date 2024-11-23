@@ -19,6 +19,9 @@
 }
 
 .themeContainer {
+	display: flex;
+	gap: 10;
+	flex-direction: row;
 	position: absolute;
 	top: 0;
 	right: 0; 

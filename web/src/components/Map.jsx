@@ -20,7 +20,8 @@ const MapView = ({ theme }) => {
 	})
 	const api = 'http://127.0.0.1:5000/route'
 
-	const [waypointsList, setWaypointsList] = useState([])
+	const [safePoints, setSafePoints] = useState([])
+	const [dangerousPoints, setDangerousPoints] = useState([])
 
 	const fetchWaypointsList = () => {
 		fetch(api, {
@@ -35,7 +36,8 @@ const MapView = ({ theme }) => {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				setWaypointsList(data)
+				setDangerousPoints(data.dangerous)
+				setSafePoints(data.safe)
 			})
 			.catch((error) => console.error('Error fetching waypoints:', error))
 	}
@@ -58,8 +60,8 @@ const MapView = ({ theme }) => {
 				latitudeExtractor={(m) => m[0]}
 				intensityExtractor={(m) => parseFloat(m[2])}
 			/>
-			{/* <RoutingMachine></RoutingMachine> */}
-			<Polyline positions={waypointsList}></Polyline>
+			<Polyline positions={dangerousPoints}></Polyline>
+			<Polyline positions={safePoints}></Polyline>
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
