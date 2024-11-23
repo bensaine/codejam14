@@ -1,0 +1,32 @@
+.singleresult {
+	display: flex;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.5s;
+	border-top: medium;
+	border-right: medium;
+	border-bottom: 2px solid var(--ui-border);
+	border-left: medium;
+	border-image: none;
+	box-sizing: border-box;
+	padding: 0.75em 1.5em;
+	overflow: hidden;
+}
+
+.singleresult:last-child {
+	border-bottom: none;
+}
+
+.singleresult span {
+	font-weight: 500;
+	font-size: 1.05em;
+	overflow: hidden;
+	text-wrap: nowrap;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	display: block;
+}
+
+.singleresult:hover {
+	background-color: var(--ui-bg-color-hover);
+}

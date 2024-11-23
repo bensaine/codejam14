@@ -21,7 +21,6 @@ const MapView = ({ geojsonData }) => {
 
 	// Setup LocateControl options
 	const locateOptions = {
-		position: 'topright',
 		strings: {
 			title: 'Enable geolocation',
 		},

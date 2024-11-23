@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	font-family: Nunito Sans, Inter, system-ui, Avenir, Helvetica, Arial,
+		sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
 
@@ -11,6 +13,9 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	--ui-bg-color: #3a3a44;
+	--ui-bg-color-hover: #4d4d57;
+	--ui-border: #353540;
 }
 
 a {

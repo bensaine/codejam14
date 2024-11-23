@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import appLogo from '/favicon.svg'
 import PWABadge from './PWABadge.jsx'
-import Places from './components/Places.jsx'
+import SearchPlaces from './components/SearchPlaces.jsx'
 import './App.css'
 import MapView from './components/Map.jsx'
 import { APIProvider } from '@vis.gl/react-google-maps'
@@ -10,8 +10,8 @@ import GeolocationProvider from './components/GeolocationProvider.jsx'
 
 function App() {
 	return (
-		<GeolocationProvider>
-			<APIProvider apiKey={import.meta.env.GOOGLE_MAPS_API_KEY}>
+		<APIProvider apiKey={import.meta.env.GOOGLE_MAPS_API_KEY}>
+			<GeolocationProvider>
 				<div style={{ width: '100vw', height: '100vh' }}>
 					<div
 						style={{
@@ -22,18 +22,17 @@ function App() {
 							display: 'flex',
 							justifyContent: 'center',
 							alignItems: 'center',
-							padding: '1rem',
+							padding: '2rem',
 							zIndex: 1000,
-							backdropFilter: 'blur(10px)',
 						}}
 					>
-						<Places></Places>
+						<SearchPlaces></SearchPlaces>
 					</div>
 					<MapView></MapView>
 					<PWABadge />
 				</div>
-			</APIProvider>
-		</GeolocationProvider>
+			</GeolocationProvider>
+		</APIProvider>
 	)
 }
 
