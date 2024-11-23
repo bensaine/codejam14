@@ -6,14 +6,14 @@ import './SearchAutocomplete.css'
 const SearchAutocomplete = (props) => {
 	const { getPlacePredictions } = props
 
-	const { location } = useContext(LocationContext)
-	console.log(location)
+	const { sourceLocation } = useContext(LocationContext)
+	console.log(sourceLocation)
 
 	const bounds = useMemo(() => {
-		if (!location) return {}
+		if (!sourceLocation) return {}
 		const radius = 30000 // 30 km
-		const lat = location.latitude
-		const lng = location.longitude
+		const lat = sourceLocation.latitude
+		const lng = sourceLocation.longitude
 
 		return {
 			south: lat - radius / 111111,
@@ -21,7 +21,7 @@ const SearchAutocomplete = (props) => {
 			north: lat + radius / 111111,
 			east: lng + radius / 111111,
 		}
-	}, [location])
+	}, [sourceLocation])
 
 	return (
 		<div style={styles.searchbox}>
@@ -31,7 +31,7 @@ const SearchAutocomplete = (props) => {
 				onChange={(evt) => {
 					getPlacePredictions({
 						input: evt.target.value,
-						locationBias: { lat: location.latitude, lng: location.longitude },
+						locationBias: { lat: sourceLocation.latitude, lng: sourceLocation.longitude },
 						locationRestriction: bounds,
 					})
 				}}

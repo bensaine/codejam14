@@ -17,8 +17,8 @@ import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
-	const { location } = useContext(LocationContext)
-	console.log('location', location)
+	const { sourceLocation } = useContext(LocationContext)
+	console.log('location', sourceLocation)
 
 	const addressPoints = geoJsonData['features'].map((el) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 1]
@@ -66,7 +66,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		}, // callback before engine starts retrieving locations
 	}
 
-	if (!location) {
+	if (!sourceLocation) {
 		return (
 			<div>
 				<h1>Geolocation</h1>
@@ -79,7 +79,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		<MapContainer
 			preferCanvas={true}
 			renderer={L.canvas()}
-			center={[location.latitude, location.longitude]}
+			center={[sourceLocation.latitude, sourceLocation.longitude]}
 			zoom={20}
 			style={{ height: '100%', width: '100%' }}
 		>
