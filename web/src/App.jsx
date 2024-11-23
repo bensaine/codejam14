@@ -11,7 +11,7 @@ import GeolocationProvider from './components/GeolocationProvider.jsx'
 function App() {
 	return (
 		<GeolocationProvider>
-			<APIProvider apiKey={'AIzaSyDEA2JGrdt0rIHnBN1lR-3jQg_9p7-x_hA'}>
+			<APIProvider apiKey={import.meta.env.GOOGLE_MAPS_API_KEY}>
 				<div style={{ width: '100vw', height: '100vh' }}>
 					<div
 						style={{

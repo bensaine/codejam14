@@ -8,7 +8,7 @@ const GoogleAutocomplete = () => {
 		getPlacePredictions,
 		isPlacePredictionsLoading,
 	} = usePlacesService({
-		apiKey: 'AIzaSyDEA2JGrdt0rIHnBN1lR-3jQg_9p7-x_hA',
+		apiKey: import.meta.env.GOOGLE_MAPS_API_KEY,
 	})
 
 	useEffect(() => {
