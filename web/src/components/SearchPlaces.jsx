@@ -9,7 +9,6 @@ const SearchPlaces = () => {
 			apiKey: '',
 		})
 
-	console.log(import.meta.env.GOOGLE_MAPS_API_KEY)
 	const [selectedPlace, setSelectedPlace] = useState(null)
 
 	useEffect(() => {
