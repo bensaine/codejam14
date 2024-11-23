@@ -76,8 +76,7 @@ const PlaceOverview = ({ details }) => {
 
 // Styling
 const styles = {
-	container: {
-	},
+	container: {},
 	header: {
 		display: 'flex',
 		alignItems: 'center',
