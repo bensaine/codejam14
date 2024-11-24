@@ -4,7 +4,20 @@ import { LocationContext } from '../contexts/LocationContext'
 const LocationProvider = ({ children }) => {
 	const [sourceLocation, setSourceLocation] = useState(null)
 	const [destinationLocation, setDestinationLocation] = useState(null)
+	const [safePath, setSafePath] = useState(null)
+	const [dangerousPath, setDangerousPath] = useState(null)
+	const [isPathLoading, setIsPathLoading] = useState(false)
 	const [error, setError] = useState(null)
+
+	useEffect(() => {
+		if (!setIsPathLoading) return
+
+		if (!!destinationLocation && (!safePath || !dangerousPath)) {
+			setIsPathLoading(true)
+		} else {
+			setIsPathLoading(false)
+		}
+	}, [destinationLocation, safePath, dangerousPath, setIsPathLoading])
 
 	useEffect(() => {
 		if (!navigator.geolocation) {
@@ -39,6 +52,12 @@ const LocationProvider = ({ children }) => {
 				setSourceLocation,
 				destinationLocation,
 				setDestinationLocation,
+				safePath,
+				setSafePath,
+				dangerousPath,
+				setDangerousPath,
+				isPathLoading,
+				setIsPathLoading,
 				error,
 			}}
 		>

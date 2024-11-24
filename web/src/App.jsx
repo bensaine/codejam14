@@ -13,7 +13,6 @@ import { Map as MapIcon } from 'lucide-react'
 function App() {
 	const [theme, setTheme] = useState('rastertiles/voyager')
 	const [isOpenHeatmap, setIsOpenHeatmap] = useState(true)
-	const [isPathLoading, setIsPathLoading] = useState(false)
 
 	return (
 		<APIProvider apiKey="">
@@ -33,12 +32,11 @@ function App() {
 								zIndex: 1000,
 							}}
 						>
-							<SearchPlaces isPathLoading={isPathLoading}></SearchPlaces>
+							<SearchPlaces></SearchPlaces>
 						</div>
 						<MapView
 							theme={theme}
 							isOpenHeatmap={isOpenHeatmap}
-							setIsPathLoading={setIsPathLoading}
 						/>
 					</div>
 					<div className="themeContainer">

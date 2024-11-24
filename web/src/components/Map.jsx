@@ -17,8 +17,16 @@ import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 import MapCenter from './MapCenter.jsx'
 
-const MapView = ({ theme, isOpenHeatmap, setIsPathLoading }) => {
-	const { sourceLocation, destinationLocation } = useContext(LocationContext)
+const MapView = ({ theme, isOpenHeatmap }) => {
+	const {
+		sourceLocation,
+		destinationLocation,
+		safePath,
+		setSafePath,
+		dangerousPath,
+		setDangerousPath,
+		isPathLoading,
+	} = useContext(LocationContext)
 
 	useEffect(() => {
 		if (!sourceLocation || !destinationLocation) return
@@ -30,22 +38,6 @@ const MapView = ({ theme, isOpenHeatmap, setIsPathLoading }) => {
 		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 1]
 	})
 	const api = 'http://127.0.0.1:5000/route'
-
-	const [safePoints, setSafePoints] = useState([])
-	const [dangerousPoints, setDangerousPoints] = useState([])
-
-	useEffect(() => {
-		if (!setIsPathLoading) return
-
-		if (
-			!!destinationLocation &&
-			(safePoints.length === 0 || dangerousPoints.length === 0)
-		) {
-			setIsPathLoading(true)
-		} else {
-			setIsPathLoading(false)
-		}
-	}, [destinationLocation, safePoints, dangerousPoints, setIsPathLoading])
 
 	const fetchWaypointsList = (src, dest) => {
 		fetch(api, {
@@ -60,8 +52,8 @@ const MapView = ({ theme, isOpenHeatmap, setIsPathLoading }) => {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				setDangerousPoints(data.dangerous[0])
-				setSafePoints(data.safe[0])
+				setSafePath(data.safe)
+				setDangerousPath(data.dangerous)
 			})
 			.catch((error) => console.error('Error fetching waypoints:', error))
 	}
@@ -111,9 +103,9 @@ const MapView = ({ theme, isOpenHeatmap, setIsPathLoading }) => {
 				gradient={{ 0.2: 'yellow', 0.3: 'orange', 0.5: '#ff00004f' }}
 			/>
 
-			{safePoints && (
+			{dangerousPath && (
 				<Polyline
-					positions={dangerousPoints}
+					positions={dangerousPath[0]}
 					pathOptions={{
 						color: '#800020',
 						weight: '7',
@@ -124,9 +116,9 @@ const MapView = ({ theme, isOpenHeatmap, setIsPathLoading }) => {
 					}}
 				></Polyline>
 			)}
-			{safePoints && (
+			{safePath && (
 				<Polyline
-					positions={safePoints}
+					positions={safePath[0]}
 					pathOptions={{
 						color: 'teal',
 						weight: '7',
