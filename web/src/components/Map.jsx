@@ -100,18 +100,16 @@ const MapView = ({ theme, isOpenHeatmap, setIsPathLoading }) => {
 		>
 			<LocateControl options={locateOptions} startDirectly={true} />
 			{destinationLocation && <MapCenter center={destinationLocation} />}
-			{isOpenHeatmap && (
-				<HeatmapLayer
-					points={addressPoints}
-					longitudeExtractor={(m) => m[1]}
-					latitudeExtractor={(m) => m[0]}
-					intensityExtractor={(m) => parseFloat(m[2])}
-					blur={20}
-					maxZoom={100}
-					radius={20}
-					gradient={{ 0.2: 'yellow', 0.3: 'orange', 0.5: '#ff00004f' }}
-				/>
-			)}
+			<HeatmapLayer
+				points={isOpenHeatmap ? addressPoints : []}
+				longitudeExtractor={(m) => m[1]}
+				latitudeExtractor={(m) => m[0]}
+				intensityExtractor={(m) => parseFloat(m[2])}
+				blur={20}
+				maxZoom={100}
+				radius={20}
+				gradient={{ 0.2: 'yellow', 0.3: 'orange', 0.5: '#ff00004f' }}
+			/>
 
 			{safePoints && (
 				<Polyline
