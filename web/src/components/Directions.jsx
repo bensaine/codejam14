@@ -18,7 +18,7 @@ const Directions = ({ directions }) => {
 						alignItems: 'center',
 						gap: '0.5em',
 						fontSize: '1.25em',
-						fontWeight: '600',
+						fontWeight: 'bold',
 					}}
 				>
 					DIRECTIONS <Compass size={20} />
