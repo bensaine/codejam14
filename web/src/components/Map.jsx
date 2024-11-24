@@ -47,8 +47,6 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	}, [destinationLocation])
 
 	const addressPoints = document.JSONPOINTS
-	document.BASE_API = 'http://127.0.0.1:5000'
-
 	const fetchWaypointsList = (src, dest) => {
 		fetch(document.BASE_API+"/route", {
 			method: 'POST',

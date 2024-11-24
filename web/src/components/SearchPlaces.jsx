@@ -4,13 +4,15 @@ import PlaceOverview from './PlaceOverview.jsx'
 import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocompleteService'
 import { useContext } from 'react'
 import { LocationContext } from '../contexts/LocationContext'
-import { MoveLeft } from 'lucide-react'
+import { CircleX, MoveLeft } from 'lucide-react'
+import './SearchPlaces.css'
 
 const SearchPlaces = ({}) => {
 	const {
 		setDestinationLocation,
 		isPathLoading,
 		setSafePath,
+		safePath,
 		setDangerousPath,
 	} = useContext(LocationContext)
 
@@ -65,9 +67,19 @@ const SearchPlaces = ({}) => {
 							))}
 						{selectedPlace && (
 							<div style={styles.overviewContainer}>
-								<div>
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center',
+										position: 'absolute',
+										top: '0.75em',
+										left: '0.75em',
+									}}
+								>
 									<button
 										style={styles.backButton}
+										className={safePath ? 'quit' : 'back'}
 										onClick={() => {
 											setSelectedPlace(null)
 											setDestinationLocation(null)
@@ -76,7 +88,7 @@ const SearchPlaces = ({}) => {
 											setShowResults(true)
 										}}
 									>
-										<MoveLeft size={24} />
+										{safePath ? <CircleX size={24} /> : <MoveLeft size={24} />}
 									</button>
 								</div>
 								<PlaceOverview
@@ -119,12 +131,7 @@ const styles = {
 		opacity: 0.95,
 	},
 	backButton: {
-		background: 'none',
-		border: 'none',
 		cursor: 'pointer',
-		position: 'absolute',
-		top: '0.5em',
-		left: '0.5em',
 	},
 	selection: {
 		height: '100%',

@@ -1,0 +1,16 @@
+button.back {
+	background: none;
+	color: white;
+	border: none;
+	/* padding: 1em; */
+	/* border-radius: 100%; */
+}
+
+button.quit {
+	background-color: #e85151;
+	color: white;
+	border: none;
+	border-radius: 100%;
+	padding: 0.5em;
+	aspect-ratio: 1;
+}
