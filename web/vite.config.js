@@ -19,7 +19,7 @@ export default defineConfig({
 				name: 'StrideSafe',
 				short_name: 'StrideSafe',
 				description: 'StrideSafe',
-				theme_color: '#ffffff',
+				theme_color: '#3a3a44',
 			},
 
 			workbox: {

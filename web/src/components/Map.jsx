@@ -13,7 +13,6 @@ import 'leaflet-defaulticon-compatibility'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 import LocateControl from './LocateControl.jsx'
 import { LocationContext } from '../contexts/LocationContext.jsx'
-import geoJsonData from '../assets/points.json'
 import MapCenter from './MapCenter.jsx'
 import TimeDistance from './TimeDistance.jsx'
 import Directions from './Directions.jsx'
@@ -47,11 +46,11 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		fetchWaypointsList(sourceLocation, destinationLocation)
 	}, [destinationLocation])
 
-	const addressPoints = geoJsonData
-	const api = 'http://127.0.0.1:5000/route'
+	const addressPoints = document.JSONPOINTS
+	document.BASE_API = 'http://127.0.0.1:5000'
 
 	const fetchWaypointsList = (src, dest) => {
-		fetch(api, {
+		fetch(document.BASE_API+"/route", {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

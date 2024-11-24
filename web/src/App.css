@@ -3,6 +3,10 @@
 	text-align: center;
 }
 
+.leaflet-control-container .leaflet-top {
+	display: none;
+}
+
 .container {
 	position: relative;
 	width: 100vw;
