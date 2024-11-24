@@ -21,6 +21,15 @@ print('Graph Loaded')
 # Step 3: Find two points for demonstration (you can choose any lat/lon)
 orig = (45.5017, -73.5673)  # Montreal city center
 dest = (45.5175, -73.6568)  # A location west of the city center
+def calculate_total_distance(G, path):
+    total_distance = 0  # In meters
+    for u, v in zip(path[:-1], path[1:]):
+        edge_data = G[u][v][0]  # Access the first edge data (for MultiDiGraph)
+        total_distance += edge_data.get("length", 0)  # Default to 0 if no length
+    return total_distance
+
+# Walking speed (in meters/second)
+walking_speed = 1.4  # Average walking speed (~5 km/h)
 def extract_path_geometry(G, path):
     full_path = []
     for u, v in zip(path[:-1], path[1:]):
@@ -42,13 +51,10 @@ def get_path(orig,dest):
         print('got nearest node')
         shortest_path = nx.shortest_path(graph, orig_node, dest_node, weight=weight)
         print('got shortest path')
-        # Add the nodes and the shortest path to the map
-        path_coords = [(graph.nodes[node]['y'], graph.nodes[node]['x']) for node in shortest_path]
-
-
-# Get the full path geometry
+        # Get the full path geometry
         path_geometry = extract_path_geometry(graph, shortest_path)
-        return path_geometry
+        path_distance = calculate_total_distance(graph,shortest_path)
+        return [path_geometry, path_distance, path_distance / 84]
     
     return {'safe' : get_path_with_weight('weight'), 'dangerous' : get_path_with_weight('length')}
 
