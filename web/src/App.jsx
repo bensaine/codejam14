@@ -36,13 +36,17 @@ function App() {
 						<MapView theme={theme} isOpenHeatmap={isOpenHeatmap} />
 					</div>
 					<div className="themeContainer">
-						<Map
-							className="mapToggle"
-							onClick={() => {
-								setIsOpenHeatmap(!isOpenHeatmap)
-							}}
-						></Map>
-						<Theme setTheme={setTheme} />
+						<div className="map-background">
+							<Map
+								className="mapToggle"
+								onClick={() => {
+									setIsOpenHeatmap(!isOpenHeatmap)
+								}}
+							></Map>
+						</div>
+						<div>
+							<Theme setTheme={setTheme} />
+						</div>
 					</div>
 					<PWABadge />
 				</div>

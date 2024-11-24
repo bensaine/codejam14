@@ -20,11 +20,11 @@
 
 .themeContainer {
 	display: flex;
-	gap: 10;
 	flex-direction: column;
 	position: absolute;
 	top: 0;
 	right: 0; 
+	gap: 0.5em;
 	z-index: 1000;
 	margin: 15px;
 }
@@ -40,6 +40,15 @@
   .mapToggle:hover {
     transform: scale(1.1);
   }
+.map-background {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: darkgrey;
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+}
 
 
 .logo {

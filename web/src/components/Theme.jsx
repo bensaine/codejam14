@@ -10,12 +10,13 @@ const Theme = ({ setTheme }) => {
 	}
 
 	return (
-		<div className="theme-container">
-			<Palette
-				className={`theme-icon ${isMenuOpen ? 'open' : ''}`}
-				onClick={toggleMenu}
-			/>
-
+		<div>
+			<div className="theme-container">
+				<Palette
+					className={`theme-icon ${isMenuOpen ? 'open' : ''}`}
+					onClick={toggleMenu}
+				/>
+			</div>
 			<div className={`dropdown-menu ${isMenuOpen ? 'open' : ''}`}>
 				<div className="menu-items">
 					<button

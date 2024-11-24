@@ -103,10 +103,12 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				<Polyline
 					positions={dangerousPoints}
 					pathOptions={{
-						color: 'purple',
+						color: '#800020',
 						weight: '7',
 						lineCap: 'round',
 						lineJoin: 'round',
+						opacity: '0.5',
+						dashArray: '5, 10',
 					}}
 				></Polyline>
 			)}
@@ -118,6 +120,8 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 						weight: '7',
 						lineCap: 'round',
 						lineJoin: 'round',
+						dashArray: '5, 10',
+						opacity: '0.7',
 					}}
 				></Polyline>
 			)}
