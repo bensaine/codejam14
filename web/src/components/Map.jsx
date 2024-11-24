@@ -14,7 +14,7 @@ import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 // import geoJsonData from '../assets/actes-criminels.json'
 import LocateControl from './LocateControl.jsx'
 import { LocationContext } from '../contexts/LocationContext.jsx'
-import geoJsonData from '../assets/actes-criminels.json'
+import geoJsonData from '../assets/points.json'
 import MapCenter from './MapCenter.jsx'
 import TimeDistance from './TimeDistance.jsx'
 
@@ -43,9 +43,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		fetchWaypointsList(sourceLocation, destinationLocation)
 	}, [destinationLocation])
 
-	const addressPoints = geoJsonData['features'].map((el) => {
-		return [el['properties']['LATITUDE'], el['properties']['LONGITUDE'], 1]
-	})
+	const addressPoints = geoJsonData
 	const api = 'http://127.0.0.1:5000/route'
 
 	const fetchWaypointsList = (src, dest) => {
@@ -90,9 +88,16 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 
 	if (!sourceLocation) {
 		return (
-			<div>
-				<h1>Geolocation</h1>
-				<p>{'Loading...'}</p>
+			<div
+				style={{
+					width: '100%',
+					height: '100%',
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+			>
+				<span style={{ fontSize: '2em' }}>Loading map...</span>
 			</div>
 		)
 	}

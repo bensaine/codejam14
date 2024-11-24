@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import appLogo from '/favicon.svg'
 import PWABadge from './PWABadge.jsx'
@@ -8,14 +8,13 @@ import MapView from './components/Map.jsx'
 import { APIProvider } from '@vis.gl/react-google-maps'
 import LocationProvider from './components/LocationProvider.jsx'
 import Theme from './components/Theme.jsx'
-import { Map as MapIcon } from 'lucide-react'
 
 function App() {
 	const [theme, setTheme] = useState('rastertiles/voyager')
 	const [isOpenHeatmap, setIsOpenHeatmap] = useState(true)
 
 	return (
-		<APIProvider apiKey="">
+		<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
 			<LocationProvider>
 				<div style={{ width: '100vw', height: '100vh' }}>
 					<div className="mapContainer">
@@ -44,9 +43,14 @@ function App() {
 					<div className="map-background">
 						<div className="map-background__wrap">
 							Heatmap
-							<input type="checkbox" id="toggle" checked={isOpenHeatmap} onChange={(e) => {
-                setIsOpenHeatmap(e.target.checked)
-              }} />
+							<input
+								type="checkbox"
+								id="toggle"
+								checked={isOpenHeatmap}
+								onChange={(e) => {
+									setIsOpenHeatmap(e.target.checked)
+								}}
+							/>
 						</div>
 					</div>
 					<PWABadge />
