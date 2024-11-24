@@ -78,7 +78,7 @@ const PlaceOverview = ({ details, onStartRoute, isPathLoading }) => {
 				onClick={() => onStartRoute(details.geometry.location)}
 				style={styles.startButton}
 			>
-				Start Route
+				Safest Path
 			</button>
 		</div>
 	)
