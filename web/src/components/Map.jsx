@@ -16,6 +16,7 @@ import LocateControl from './LocateControl.jsx'
 import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 import MapCenter from './MapCenter.jsx'
+import TimeDistance from './TimeDistance.jsx'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
 	const {
@@ -25,6 +26,14 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		setSafePath,
 		dangerousPath,
 		setDangerousPath,
+		safeTime,
+		setSafeTime,
+		dangerousTime,
+		setDangerousTime,
+		safeDistance,
+		setSafeDistance,
+		dangerousDistance,
+		setDangerousDistance,
 		isPathLoading,
 	} = useContext(LocationContext)
 
@@ -52,8 +61,14 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				setSafePath(data.safe)
-				setDangerousPath(data.dangerous)
+				setSafePath(data.safe[0])
+				setDangerousPath(data.dangerous[0])
+				setSafeDistance(data.safe[1])
+				setDangerousDistance(data.dangerous[1])
+				setSafeTime(data.safe[2])
+				setDangerousTime(data.dangerous[2])
+				console.log(safeTime)
+				console.log(data.safe[2])
 			})
 			.catch((error) => console.error('Error fetching waypoints:', error))
 	}
@@ -105,7 +120,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 
 			{dangerousPath && (
 				<Polyline
-					positions={dangerousPath[0]}
+					positions={dangerousPath}
 					pathOptions={{
 						color: '#800020',
 						weight: '7',
@@ -118,7 +133,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 			)}
 			{safePath && (
 				<Polyline
-					positions={safePath[0]}
+					positions={safePath}
 					pathOptions={{
 						color: 'teal',
 						weight: '7',
@@ -130,6 +145,14 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				></Polyline>
 			)}
 			{destinationLocation && <Marker position={destinationLocation}></Marker>}
+			{destinationLocation && (
+				<TimeDistance
+					safeTime={safeTime}
+					safeDistance={safeDistance}
+					dangerousTime={dangerousTime}
+					dangerousDistance={dangerousDistance}
+				></TimeDistance>
+			)}
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
