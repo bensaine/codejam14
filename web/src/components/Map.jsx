@@ -46,8 +46,8 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				setDangerousPoints(data.dangerous)
-				setSafePoints(data.safe)
+				setDangerousPoints(data.dangerous[0])
+				setSafePoints(data.safe[0])
 			})
 			.catch((error) => console.error('Error fetching waypoints:', error))
 	}
