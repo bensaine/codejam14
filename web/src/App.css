@@ -40,6 +40,10 @@
   .mapToggle:hover {
     transform: scale(1.1);
   }
+
+  .mapToggle.open {
+    transform: rotate(180deg);
+  }
 .map-background {
 	display: flex;
 	justify-content: center;
