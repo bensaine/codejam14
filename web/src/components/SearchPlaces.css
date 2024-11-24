@@ -24,4 +24,5 @@ button.quit {
 	border-radius: 100%;
 	padding: 0.35em;
 	aspect-ratio: 1;
+	display: flex;
 }
