@@ -16,6 +16,7 @@ import { LocationContext } from '../contexts/LocationContext.jsx'
 import MapCenter from './MapCenter.jsx'
 import TimeDistance from './TimeDistance.jsx'
 import Directions from './Directions.jsx'
+import './Map.css'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
 	const {
@@ -48,7 +49,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 
 	const addressPoints = document.JSONPOINTS
 	const fetchWaypointsList = (src, dest) => {
-		fetch(document.BASE_API+"/route", {
+		fetch(document.BASE_API + '/route', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -115,6 +116,13 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		)
 	}
 
+	const customIcon = new L.DivIcon({
+		className: 'leaflet-div-icon', // You can still use this for custom styling if needed
+		html: `
+		 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4fc368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-check-inside"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><path d="m9 10 2 2 4-4"/></svg>
+		`,
+	})
+
 	return (
 		<MapContainer
 			preferCanvas={true}
@@ -161,7 +169,9 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 					}}
 				></Polyline>
 			)}
-			{destinationLocation && <Marker position={destinationLocation}></Marker>}
+			{destinationLocation && (
+				<Marker position={destinationLocation} icon={customIcon}></Marker>
+			)}
 			{showTimeDistance && (
 				<TimeDistance
 					safeTime={safeTime}

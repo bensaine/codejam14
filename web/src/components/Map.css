@@ -1,0 +1,8 @@
+/* Override the default leaflet-div-icon styles */
+.leaflet-div-icon {
+    background: none !important;  /* Remove the background */
+    border: none !important;      /* Remove the border */
+    box-shadow: none !important;  /* Remove the box-shadow */
+    padding: 0 !important;        /* Remove the padding */
+  }
+  
