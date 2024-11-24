@@ -26,7 +26,7 @@ const SearchAutocomplete = (props) => {
 		<div style={styles.searchbox} className="searchbox">
 			<input
 				style={styles.searchbox__input}
-				placeholder="Search"
+				placeholder="Search destination..."
 				onBlur={() => onBlur()}
 				onFocus={() => onFocus()}
 				onChange={(evt) => {
