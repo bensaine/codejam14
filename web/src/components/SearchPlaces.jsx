@@ -7,7 +7,7 @@ import { LocationContext } from '../contexts/LocationContext'
 import { MoveLeft } from 'lucide-react'
 
 const SearchPlaces = ({}) => {
-	const { setDestinationLocation, isPathLoading } = useContext(LocationContext)
+	const { setDestinationLocation, isPathLoading, setSafePath, setDangerousPath } = useContext(LocationContext)
 	const { placesService, placePredictions, getPlacePredictions } =
 		usePlacesService({
 			apiKey: '',
@@ -65,6 +65,8 @@ const SearchPlaces = ({}) => {
 										onClick={() => {
 											setSelectedPlace(null)
 											setDestinationLocation(null)
+											setSafePath(null)
+											setDangerousPath(null)
 											setShowResults(true)
 										}}
 									>
