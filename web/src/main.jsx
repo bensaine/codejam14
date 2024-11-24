@@ -11,7 +11,8 @@ script.src =
 	'&libraries=places'
 document.head.appendChild(script)
 
-document.BASE_API = 'http://127.0.0.1:5000'
+// document.BASE_API = 'http://127.0.0.1:5000'
+document.BASE_API = 'https://stridesafe-backend.loca.lt'
 
 script.onload = () => {
 	ReactDOM.createRoot(document.getElementById('root')).render(
