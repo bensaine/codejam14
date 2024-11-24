@@ -1,6 +1,8 @@
-import React from 'react'
+import { useEffect, useRef } from 'react'
+import './PlaceOverview.css'
+import PathLoadingAnimation from './PathLoadingAnimation'
 
-const PlaceOverview = ({ details, onStartRoute }) => {
+const PlaceOverview = ({ details, onStartRoute, isPathLoading }) => {
 	if (!details) {
 		return <div>Loading...</div>
 	}
@@ -16,6 +18,15 @@ const PlaceOverview = ({ details, onStartRoute }) => {
 		photos,
 		types,
 	} = details
+
+	if (isPathLoading) {
+		return (
+			<div className="loadingContainer">
+				<PathLoadingAnimation />
+				<span>Generating the safest route...</span>
+			</div>
+		)
+	}
 
 	return (
 		<div style={styles.container}>
@@ -70,7 +81,9 @@ const PlaceOverview = ({ details, onStartRoute }) => {
 					</a>
 				)}
 			</div>
-            <button onClick={() => onStartRoute(details.geometry.location)}>Start Route</button>
+			<button onClick={() => onStartRoute(details.geometry.location)}>
+				Start Route
+			</button>
 		</div>
 	)
 }

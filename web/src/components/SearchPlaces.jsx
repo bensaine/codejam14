@@ -79,8 +79,8 @@ const SearchPlaces = ({}) => {
 										console.log('Starting route to:', lat(), lng())
 										setDestinationLocation([lat(), lng()])
 									}}
+									isPathLoading={isPathLoading}
 								/>
-								{isPathLoading && <p>Loading path...</p>}
 							</div>
 						)}
 					</div>

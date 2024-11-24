@@ -1,0 +1,13 @@
+.loadingContainer,
+.loadingContainer > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1em 0;
+}
+
+.loadingContainer > span {
+	font-size: 1.2em;
+	font-weight: 600;
+}

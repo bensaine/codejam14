@@ -1,0 +1,11 @@
+.slab-rli-bounding-box .slab-indicator .slabs-wrapper {
+	transform: perspective(35em) rotateX(75deg) rotateZ(-90deg) !important;
+	transform-style: preserve-3d !important;
+	transform-origin: 50% 50% !important;
+}
+
+.slab-rli-bounding-box .slab-indicator {
+	width: 15em !important;
+	margin-top: -1em !important;
+	margin-right: -3em !important;
+}
