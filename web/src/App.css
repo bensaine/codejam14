@@ -3,10 +3,10 @@
 	text-align: center;
 }
 
-.container  { 
+.container {
 	position: relative;
 	width: 100vw;
-	height: 100vh ;
+	height: 100vh;
 }
 
 .mapContainer {
@@ -22,36 +22,22 @@
 	display: flex;
 	flex-direction: column;
 	position: absolute;
-	top: 0;
-	right: 0; 
+	bottom: 0;
+	left: 0;
 	gap: 0.5em;
 	z-index: 1000;
 	margin: 15px;
 }
 
-.mapToggle {
-    width: 2.5rem;
-    height: 2.5rem;
-    cursor: pointer;
-    transition: transform 0.5s ease;
-    color: var(--ui-bg-color);
-  }	
-
-  .mapToggle:hover {
-    transform: scale(1.1);
-  }
-
-  .mapToggle.open {
-    transform: rotate(180deg);
-  }
 .map-background {
 	display: flex;
+	position: absolute;
+	bottom: 1rem;
+	right: 0;
+  z-index: 1000;
 	justify-content: center;
 	align-items: center;
-	background-color: darkgrey;
-	border-radius: 50%;
-	width: 3rem;
-	height: 3rem;
+  color: black;
 }
 
 

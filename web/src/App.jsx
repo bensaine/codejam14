@@ -34,22 +34,19 @@ function App() {
 						>
 							<SearchPlaces></SearchPlaces>
 						</div>
-						<MapView
-							theme={theme}
-							isOpenHeatmap={isOpenHeatmap}
-						/>
+						<MapView theme={theme} isOpenHeatmap={isOpenHeatmap} />
 					</div>
 					<div className="themeContainer">
-						<div className="map-background">
-							<MapIcon
-								className={`mapToggle ${isOpenHeatmap ? 'open' : ''}`}
-								onClick={() => {
-									setIsOpenHeatmap(!isOpenHeatmap)
-								}}
-							></MapIcon>
-						</div>
 						<div>
 							<Theme setTheme={setTheme} />
+						</div>
+					</div>
+					<div className="map-background">
+						<div className="map-background__wrap">
+							Heatmap
+							<input type="checkbox" id="toggle" checked={isOpenHeatmap} onChange={(e) => {
+                setIsOpenHeatmap(e.target.checked)
+              }} />
 						</div>
 					</div>
 					<PWABadge />
