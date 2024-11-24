@@ -2,6 +2,9 @@
 	transition: margin-top 0.5s;
 }
 
+.resultsbox > div {
+	width: 100%;
+}
 .selected > .resultsbox {
 	margin-top: -2em;
 }
