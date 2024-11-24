@@ -239,6 +239,7 @@ const styles = {
 		gap: '0.5em',
 		background: '#4FC368',
 		fontSize: '1.05em',
+		color: '#ffffff',
 		fontWeight: 600,
 		padding: '0.65em 1.25em',
 		borderRadius: '15em',
