@@ -11,13 +11,13 @@ const TimeDistance = ({
 		<div className="container">
 			<div className="display">
 				<div className="time-distance">
-					<Footprints color="teal"></Footprints>
+					<Footprints color="chartreuse"></Footprints>
 					<p>{`${Math.round(safeTime)} min (${
 						Math.round(safeDistance / 100) / 10
 					} km)`}</p>
 				</div>
 				<div className="time-distance">
-					<Footprints color="#800020"></Footprints>
+					<Footprints color="red"></Footprints>
 					<p>{`${Math.round(dangerousTime)} min (${
 						Math.round(dangerousDistance / 100) / 10
 					} km)`}</p>
