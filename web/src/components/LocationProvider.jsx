@@ -10,6 +10,7 @@ const LocationProvider = ({ children }) => {
 	const [dangerousTime, setDangerousTime] = useState(null)
 	const [safeDistance, setSafeDistance] = useState(null)
 	const [dangerousDistance, setDangerousDistance] = useState(null)
+	const [directions, setDirections] = useState(null)
 	const [isPathLoading, setIsPathLoading] = useState(false)
 	const [error, setError] = useState(null)
 
@@ -68,6 +69,8 @@ const LocationProvider = ({ children }) => {
 				setSafeDistance,
 				dangerousDistance,
 				setDangerousDistance,
+				directions,
+				setDirections,
 				isPathLoading,
 				setIsPathLoading,
 				error,
