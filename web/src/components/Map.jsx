@@ -15,6 +15,7 @@ import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
 import LocateControl from './LocateControl.jsx'
 import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
+import MapCenter from './MapCenter.jsx'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
 	const { sourceLocation, destinationLocation } = useContext(LocationContext)
@@ -85,6 +86,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 			style={{ height: '100%', width: '100%' }}
 		>
 			<LocateControl options={locateOptions} startDirectly={true} />
+      {destinationLocation && <MapCenter center={destinationLocation}/>}
 			{isOpenHeatmap && (
 				<HeatmapLayer
 					points={addressPoints}

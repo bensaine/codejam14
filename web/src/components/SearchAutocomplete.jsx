@@ -23,7 +23,7 @@ const SearchAutocomplete = (props) => {
 	}, [sourceLocation])
 
 	return (
-		<div style={styles.searchbox}>
+		<div style={styles.searchbox} className="searchbox">
 			<input
 				style={styles.searchbox__input}
 				placeholder="Search"
@@ -54,6 +54,7 @@ const styles = {
 		gap: '1em',
 		boxSizing: 'border-box',
 		boxShadow: '#0000003b 0px 5px 15px 2px',
+		marginBottom: '1em',
 	},
 	searchbox__input: {
 		outline: 'none',
@@ -63,11 +64,13 @@ const styles = {
 		fontWeight: 400,
 		fontFamily: 'inherit',
 		flexGrow: 1,
+		height: 'inherit',
 	},
 	searchbox__icon: {
 		color: '#fff',
 		cursor: 'pointer',
 		flexShrink: 0,
+		height: 'inherit',
 	},
 	resultsbox: {
 		display: 'flex',
