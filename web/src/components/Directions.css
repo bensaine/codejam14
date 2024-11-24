@@ -10,7 +10,7 @@
 
 .directions-container .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 0.5rem 1rem;
     background-color: var(--ui-bg-color);
