@@ -34,12 +34,12 @@ const PlaceOverview = ({ details, onStartRoute, isPathLoading }) => {
 				<img src={icon} alt={`${name} icon`} style={styles.icon} />
 				<h2 style={styles.title}>{name}</h2>
 			</div>
-			<p style={styles.address}>{formatted_address}</p>
 			{rating && (
 				<p style={styles.rating}>
 					⭐ {rating} ({user_ratings_total} ratings)
 				</p>
 			)}
+			<p style={styles.address}>{formatted_address}</p>
 			{photos && photos.length > 0 && (
 				<div style={styles.photos}>
 					{photos.slice(0, 3).map((photo, index) => (
@@ -52,13 +52,6 @@ const PlaceOverview = ({ details, onStartRoute, isPathLoading }) => {
 					))}
 				</div>
 			)}
-			<p style={styles.types}>
-				{types?.map((type) => (
-					<span key={type} style={styles.type}>
-						{type.replace(/_/g, ' ')}
-					</span>
-				))}
-			</p>
 			<div style={styles.links}>
 				{website && (
 					<a
@@ -81,7 +74,10 @@ const PlaceOverview = ({ details, onStartRoute, isPathLoading }) => {
 					</a>
 				)}
 			</div>
-			<button onClick={() => onStartRoute(details.geometry.location)}>
+			<button
+				onClick={() => onStartRoute(details.geometry.location)}
+				style={styles.startButton}
+			>
 				Start Route
 			</button>
 		</div>
@@ -95,6 +91,8 @@ const styles = {
 		display: 'flex',
 		alignItems: 'center',
 		marginBottom: '8px',
+		justifyContent: 'center',
+		marginTop: '5px',
 	},
 	icon: {
 		width: '40px',
@@ -108,7 +106,7 @@ const styles = {
 	},
 	address: {
 		margin: '8px 0',
-		color: '#555',
+		color: '#ffffff',
 	},
 	rating: {
 		margin: '8px 0',
@@ -120,10 +118,10 @@ const styles = {
 		margin: '8px 0',
 	},
 	photo: {
-		width: '100px',
-		height: '100px',
+		width: '200px',
+		height: '200px',
 		objectFit: 'cover',
-		borderRadius: '4px',
+		borderRadius: '16px',
 	},
 	types: {
 		margin: '8px 0',
@@ -139,12 +137,17 @@ const styles = {
 	links: {
 		marginTop: '8px',
 		display: 'flex',
-		flexDirection: 'column',
+		flexDirection: 'row',
 		gap: '4px',
+		justifyContent: 'space-around',
 	},
 	link: {
-		color: '#007BFF',
-		textDecoration: 'none',
+		color: '#ffffff',
+		textDecoration: 'underline',
+	},
+	startButton: {
+		backgroundColor: '#4FC368',
+		margin: '15px',
 	},
 }
 
