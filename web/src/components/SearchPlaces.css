@@ -1,3 +1,11 @@
+.resultsbox {
+	transition: margin-top 0.5s;
+}
+
+.selected > .resultsbox {
+	margin-top: -2em;
+}
+
 button.back {
 	background: none;
 	color: white;

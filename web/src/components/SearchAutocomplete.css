@@ -1,21 +1,21 @@
 .searchbox {
-    transition: all 0.7s;
+	transition: all 0.7s;
 }
 
 .searchbox * {
-    transition: all 0.3s;
+	transition: all 0.3s;
 }
 
 .selected > .searchbox {
-    transform: translateY(-5em);
-    /* height: 1em !important; */
-    margin: 0 !important;
-    padding: 0 !important;
-    opacity: 0 !important;
+	transform: translateY(-7em);
+	/* height: 1em !important; */
+	margin: 0 !important;
+	padding: 0 !important;
+	opacity: 0 !important;
 }
 
 .selected > .searchbox * {
-    opacity: 0 !important;
+	opacity: 0 !important;
 }
 
 .singleresult {

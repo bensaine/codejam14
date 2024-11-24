@@ -50,6 +50,7 @@ const SearchPlaces = ({}) => {
 
 				{(showResults || selectedPlace) && (
 					<div
+						className="resultsbox"
 						style={{
 							...styles.resultsbox,
 							...(selectedPlace ? styles.selection : {}),
