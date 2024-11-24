@@ -5,6 +5,7 @@ import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocomplet
 import { useContext } from 'react'
 import { LocationContext } from '../contexts/LocationContext'
 import { CircleX, MoveLeft } from 'lucide-react'
+import Directions from './Directions.jsx'
 import './SearchPlaces.css'
 
 const SearchPlaces = ({}) => {
@@ -14,6 +15,7 @@ const SearchPlaces = ({}) => {
 		setSafePath,
 		safePath,
 		setDangerousPath,
+		directions,
 	} = useContext(LocationContext)
 
 	const { placesService, placePredictions, getPlacePredictions } =
@@ -101,6 +103,9 @@ const SearchPlaces = ({}) => {
 									isRouting={!!safePath}
 									isPathLoading={isPathLoading}
 								/>
+								{directions && (
+									<Directions directions={directions}></Directions>
+								)}
 							</div>
 						)}
 					</div>

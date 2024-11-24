@@ -14,8 +14,6 @@ import Directions from './components/Directions.jsx'
 function App() {
 	const [theme, setTheme] = useState('rastertiles/voyager')
 	const [isOpenHeatmap, setIsOpenHeatmap] = useState(true)
-	const { directions } = useContext(LocationContext)
-	const [showDirections, setShowDirections] = useState(false)
 
 	return (
 		<APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
@@ -34,11 +32,7 @@ function App() {
 							zIndex: 1000,
 						}}
 					>
-						<SearchPlaces
-							toggleDirections={() => setShowDirections(!setShowDirections)}
-						></SearchPlaces>
-
-						{directions && <Directions directions={directions}></Directions>}
+						<SearchPlaces></SearchPlaces>
 					</div>
 					<MapView theme={theme} isOpenHeatmap={isOpenHeatmap} />
 				</div>

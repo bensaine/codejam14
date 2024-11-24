@@ -1,16 +1,7 @@
 .directions-container {
-    z-index: 1000;
-    background-color: var(--ui-bg-color);
-    width: 100%;
-    max-width: 30rem;
-    margin: 1rem auto; /* Centers the container horizontally */
     border-radius: 2em;
-    overflow: hidden;
     transition: height 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
     padding: 1rem; /* Adds padding inside the container */
-    opacity: 0.95;
 }
 
 .directions-container.expanded {

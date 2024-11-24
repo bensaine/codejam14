@@ -9,9 +9,6 @@ const Directions = ({ directions }) => {
 		<div className={`directions-container ${isExpanded ? 'expanded' : ''}`}>
 			<div className="header">
 				{/* Back Button */}
-				<button className="back-button">
-					<ArrowLeft size={16} />
-				</button>
 				<p>DIRECTIONS</p>
 				{/* Expand/Collapse Button */}
 				<button
