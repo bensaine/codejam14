@@ -10,7 +10,7 @@ const SearchAutocomplete = (props) => {
 
 	const bounds = useMemo(() => {
 		if (!sourceLocation) return {}
-		const radius = 30000 // 30 km
+		const radius = 10000 // 10 km
 		const lat = sourceLocation[0]
 		const lng = sourceLocation[1]
 
