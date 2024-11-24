@@ -34,12 +34,20 @@
 	position: absolute;
 	bottom: 1rem;
 	right: 0;
-  z-index: 1000;
+	z-index: 1000;
 	justify-content: center;
 	align-items: center;
-  color: black;
+	color: black;
 }
 
+.map-background__wrap {
+	font-size: 0.9em;
+	font-weight: 500;
+}
+
+.map-background__wrap input {
+	color-scheme: light;
+}
 
 .logo {
 	height: 6em;
