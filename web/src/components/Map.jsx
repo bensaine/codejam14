@@ -37,6 +37,8 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		isPathLoading,
 	} = useContext(LocationContext)
 
+	const [showTimeDistance, setShowTimeDistance] = useState(false)
+
 	useEffect(() => {
 		if (!sourceLocation || !destinationLocation) return
 
@@ -88,6 +90,18 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		}, // callback before engine starts retrieving locations
 	}
 
+	useEffect(() => {
+		if (!isPathLoading && destinationLocation) {
+			const timer = setTimeout(() => {
+				setShowTimeDistance(true)
+			}, 300)
+
+			return () => clearTimeout(timer)
+		} else {
+			setShowTimeDistance(false)
+		}
+	}, [isPathLoading, destinationLocation])
+
 	if (!sourceLocation) {
 		return (
 			<div>
@@ -135,7 +149,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				<Polyline
 					positions={safePath}
 					pathOptions={{
-						color: 'teal',
+						color: '#4FC368',
 						weight: '7',
 						lineCap: 'round',
 						lineJoin: 'round',
@@ -145,7 +159,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				></Polyline>
 			)}
 			{destinationLocation && <Marker position={destinationLocation}></Marker>}
-			{destinationLocation && (
+			{showTimeDistance && (
 				<TimeDistance
 					safeTime={safeTime}
 					safeDistance={safeDistance}
