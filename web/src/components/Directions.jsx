@@ -5,6 +5,8 @@ import './Directions.css'
 const Directions = ({ directions }) => {
 	const [isExpanded, setIsExpanded] = useState(false)
 
+	if (!directions) return null
+
 	return (
 		<div className={`directions-container ${isExpanded ? 'expanded' : ''}`}>
 			<div className="header">

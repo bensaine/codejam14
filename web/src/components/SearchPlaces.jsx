@@ -102,10 +102,10 @@ const SearchPlaces = ({}) => {
 										console.log('Starting route to:', lat(), lng())
 										setDestinationLocation([lat(), lng()])
 									}}
-									isRouting={!!safePath}
+									isRouting={!isPathLoading && !!safePath}
 									isPathLoading={isPathLoading}
 								/>
-								{directions && (
+								{(!isPathLoading && !!safePath && !!directions) && (
 									<Directions directions={directions}></Directions>
 								)}
 							</div>
