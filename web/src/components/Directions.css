@@ -1,21 +1,20 @@
 .directions-container {
     z-index: 1000;
     background-color: var(--ui-bg-color);
-    position: absolute;
-    right: 0;
-    top: 35rem;
-    width: 30rem;
-    height: 8rem; 
+    width: 100%;
+    max-width: 30rem;
+    margin: 1rem auto; /* Centers the container horizontally */
     border-radius: 2em;
-        margin-right: 1rem;
     overflow: hidden;
     transition: height 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    padding: 1rem; /* Adds padding inside the container */
+    opacity: 0.95;
 }
 
 .directions-container.expanded {
-    height: 30rem; 
+    height: auto; /* Expands to the content size */
 }
 
 .directions-container .header {
@@ -67,25 +66,25 @@
 .directions-container .content p {
     font-size: 1.1rem;
     font-weight: 400;
-    text-align: center; 
+    text-align: center;
     margin: 0.5rem 0;
     line-height: 1.4;
 }
 
 .back-button {
-	background: none;
-	border: none;
-	cursor: pointer;
-	color: var(--icon-color);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0.5rem;
-	border-radius: 50%;
-	transition: background-color 0.2s ease;
-	margin-right: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--icon-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    margin-right: 0.5rem;
 }
 
 .back-button:hover {
-	background-color: var(--hover-bg-color);
+    background-color: var(--hover-bg-color);
 }
