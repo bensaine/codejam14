@@ -11,7 +11,7 @@ const TimeDistance = ({
 		<div className="container">
 			<div className="display">
 				<div className="time-distance">
-					<Footprints color="chartreuse"></Footprints>
+					<Footprints color="#4FC368"></Footprints>
 					<p>{`${Math.round(safeTime)} min (${
 						Math.round(safeDistance / 100) / 10
 					} km)`}</p>
