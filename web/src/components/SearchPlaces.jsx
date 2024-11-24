@@ -23,16 +23,17 @@ const SearchPlaces = () => {
 	}, [selectedPlace])
 
 	const handlePlaceSelect = (placeId) => {
-		console.log('Selected:', placeId)
 		placesService?.getDetails({ placeId }, (placeDetails) => {
-			console.log(placeDetails)
 			setSelectedPlace(placeDetails)
 		})
 	}
 
 	return (
 		<>
-			<div style={styles.container}>
+			<div
+				style={styles.container}
+				className={selectedPlace ? 'selected' : 'search'}
+			>
 				<SearchAutocomplete
 					getPlacePredictions={getPlacePredictions}
 					onFocus={() => setShowResults(true)}
@@ -91,7 +92,6 @@ const styles = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',
-		gap: '1em',
 		width: '50vw',
 		minWidth: '22em',
 		zIndex: 10,
