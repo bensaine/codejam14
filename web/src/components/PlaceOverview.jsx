@@ -158,6 +158,7 @@ const styles = {
 		margin: 0,
 		fontSize: '20px',
 		fontWeight: 'bold',
+		padding: '0 2.5em',
 	},
 	address: {},
 	rating: {
