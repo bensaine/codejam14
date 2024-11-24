@@ -44,7 +44,7 @@ function App() {
 					<div className="themeContainer">
 						<div className="map-background">
 							<MapIcon
-								className="mapToggle"
+								className={`mapToggle ${isOpenHeatmap ? 'open' : ''}`}
 								onClick={() => {
 									setIsOpenHeatmap(!isOpenHeatmap)
 								}}
