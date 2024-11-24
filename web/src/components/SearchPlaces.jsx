@@ -16,6 +16,7 @@ const SearchPlaces = ({}) => {
 		safePath,
 		setDangerousPath,
 		directions,
+		setDirections
 	} = useContext(LocationContext)
 
 	const { placesService, placePredictions, getPlacePredictions } =
@@ -88,6 +89,7 @@ const SearchPlaces = ({}) => {
 											setDestinationLocation(null)
 											setSafePath(null)
 											setDangerousPath(null)
+											setDirections(null)
 											setShowResults(true)
 										}}
 									>
