@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS, cross_origin
 from json import loads
-from route import get_path
+from route import get_path, query_location_metric
 DATA = "./data/"
 app = Flask(__name__)
 cors = CORS(app)
@@ -36,6 +36,18 @@ def get_route():
     path = get_path(body['source'],body['destination'])
     return jsonify(path)
 
+@app.route('/crime',methods=['POST'])
+def get_crime_within():
+    body = request.json
+    bad_format_response = ("Expected /route to receive POST data in the following format: {source: (latitude, longitude), radius: number}",400)
+    if 'source' not in body:
+        return bad_format_response
+
+    if not is_coord(body['source']):
+        return bad_format_response
+    
+    path = query_location_metric([body['source']],body.get('radius',0.125))
+    return jsonify(path)
 
 if __name__ == "__main__":
     app.run(debug=True)

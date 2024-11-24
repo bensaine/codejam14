@@ -4,6 +4,9 @@ import folium
 import networkx as nx
 import json
 
+from sklearn.neighbors import BallTree
+import numpy as np
+import pandas as pd
 # Step 1: Define the place (Montreal) and load the road network
 # Step 2: Simplify the graph
 # graph = ox.simplify_graph(graph)
@@ -32,3 +35,24 @@ def get_path(orig,dest):
         return path_coords
     
     return {'safe' : get_path_with_weight('weight'), 'dangerous' : get_path_with_weight('length')}
+
+
+
+crime_data = pd.read_csv('./data/crimes_raw.csv')
+coordinates = crime_data[['LATITUDE','LONGITUDE']].dropna()
+# Convert coordinates to radians for BallTree
+coordinates_rad = np.radians(coordinates.values)
+
+# Build BallTree
+tree = BallTree(coordinates_rad, metric='haversine')
+
+def query_location(coord,radius=0.00002):
+    indices = tree.query_radius(np.radians(coord),radius)
+    return coordinates.iloc[indices[0]].values
+
+def query_location_metric(coord,radius_km):
+    radius = radius_km / 6371
+    df = query_location(coord,radius)
+    if df is None:
+        return 0
+    return len(df)
