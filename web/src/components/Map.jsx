@@ -47,10 +47,10 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 	}, [destinationLocation])
 
 	const addressPoints = document.JSONPOINTS
-	const api = 'http://127.0.0.1:5000/route'
+	document.BASE_API = 'http://127.0.0.1:5000'
 
 	const fetchWaypointsList = (src, dest) => {
-		fetch(api, {
+		fetch(document.BASE_API+"/route", {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
