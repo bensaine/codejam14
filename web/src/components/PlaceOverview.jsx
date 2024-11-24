@@ -59,6 +59,8 @@ const PlaceOverview = ({ details, onStartRoute, isPathLoading, isRouting }) => {
 		)
 	}
 
+	const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
+
 	return (
 		<div style={styles.container}>
 			<div style={styles.header}>
@@ -68,24 +70,22 @@ const PlaceOverview = ({ details, onStartRoute, isPathLoading, isRouting }) => {
 			<span style={styles.address}>{formatted_address}</span>
 			{!isRouting && (
 				<>
-					<p style={styles.types}>
-						{types?.map((type) => (
+					<div style={styles.types}>
+						{rating && (
+							<span style={styles.type}>
+								⭐ {rating} ({user_ratings_total} ratings)
+							</span>
+						)}
+						{!!placeCrimeScore && (
+							<span style={styles.type}>
+								🔒 {placeCrimeScore.toFixed(2) > 0.6 ? 'High' : 'Low'} crime
+							</span>
+						)}
+						{types?.slice(0, 3).map((type) => (
 							<span key={type} style={styles.type}>
-								{type.replace(/_/g, ' ')}
+								{capitalize(type.replace(/_/g, ' '))}
 							</span>
 						))}
-					</p>
-					<div style={styles.funStats}>
-						{placeCrimeScore && (
-							<p style={styles.rating}>
-								🔒 {placeCrimeScore.toFixed(2)} (Crime Score)
-							</p>
-						)}
-						{rating && (
-							<p style={styles.rating}>
-								⭐ {rating} ({user_ratings_total} ratings)
-							</p>
-						)}
 					</div>
 					{/* // {photos && photos.length > 0 && (
 			// 	<div style={styles.photos}>
@@ -176,12 +176,16 @@ const styles = {
 		borderRadius: '16px',
 	},
 	types: {
-		margin: '8px 0',
+		margin: '8px 0px',
 		fontSize: '12px',
-		color: '#888',
+		color: 'rgb(136, 136, 136)',
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'center',
+		alignContent: 'center',
+		gap: '1em',
 	},
 	type: {
-		marginRight: '8px',
 		background: 'var(--ui-button)',
 		color: 'white',
 		padding: '4px 8px',
