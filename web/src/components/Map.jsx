@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import {
 	MapContainer,
 	TileLayer,
@@ -18,7 +18,6 @@ import geoJsonData from '../assets/actes-criminels.json'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
 	const { sourceLocation, destinationLocation } = useContext(LocationContext)
-	console.log('location', sourceLocation)
 
 	useEffect(() => {
 		if (!sourceLocation || !destinationLocation) return
