@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react' // Importing icons
+import { ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react' // Importing icons
 import './Directions.css'
 
 const Directions = ({ directions }) => {
@@ -8,7 +8,12 @@ const Directions = ({ directions }) => {
 	return (
 		<div className={`directions-container ${isExpanded ? 'expanded' : ''}`}>
 			<div className="header">
+				{/* Back Button */}
+				<button className="back-button">
+					<ArrowLeft size={16} />
+				</button>
 				<p>DIRECTIONS</p>
+				{/* Expand/Collapse Button */}
 				<button
 					className="expand-button"
 					onClick={(e) => {
@@ -22,7 +27,14 @@ const Directions = ({ directions }) => {
 			<div className="content">
 				<p>{directions[0]}</p>
 				{isExpanded && (
-					<div>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							textAlign: 'center',
+						}}
+					>
 						{directions.slice(1).map((direction, index) => (
 							<p key={index}>{direction}</p>
 						))}

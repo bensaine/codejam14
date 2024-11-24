@@ -4,7 +4,7 @@
     position: absolute;
     right: 0;
     top: 35rem;
-    width: 20rem;
+    width: 30rem;
     height: 8rem; 
     border-radius: 2em;
         margin-right: 1rem;
@@ -54,6 +54,9 @@
 }
 
 .directions-container .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 1rem;
     font-size: 1rem;
     color: var(--text-color);
@@ -62,8 +65,27 @@
 }
 
 .directions-container .content p {
-    font-size: 1rem;
-    text-align: left; 
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-align: center; 
     margin: 0.5rem 0;
     line-height: 1.4;
+}
+
+.back-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: var(--icon-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem;
+	border-radius: 50%;
+	transition: background-color 0.2s ease;
+	margin-right: 0.5rem;
+}
+
+.back-button:hover {
+	background-color: var(--hover-bg-color);
 }
