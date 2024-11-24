@@ -181,7 +181,6 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 					dangerousDistance={dangerousDistance}
 				></TimeDistance>
 			)}
-			{showTimeDistance && <Directions directions={directions}></Directions>}
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
