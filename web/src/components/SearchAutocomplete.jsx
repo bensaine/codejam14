@@ -4,10 +4,9 @@ import { Search } from 'lucide-react'
 import './SearchAutocomplete.css'
 
 const SearchAutocomplete = (props) => {
-	const { getPlacePredictions } = props
+	const { getPlacePredictions, onBlur, onFocus } = props
 
 	const { sourceLocation } = useContext(LocationContext)
-	console.log(sourceLocation)
 
 	const bounds = useMemo(() => {
 		if (!sourceLocation) return {}
@@ -28,6 +27,8 @@ const SearchAutocomplete = (props) => {
 			<input
 				style={styles.searchbox__input}
 				placeholder="Search"
+				onBlur={() => onBlur()}
+				onFocus={() => onFocus()}
 				onChange={(evt) => {
 					getPlacePredictions({
 						input: evt.target.value,
