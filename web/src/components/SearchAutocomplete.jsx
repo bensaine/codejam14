@@ -55,6 +55,7 @@ const styles = {
 		boxSizing: 'border-box',
 		boxShadow: '#0000003b 0px 5px 15px 2px',
 		marginBottom: '1em',
+		opacity: 0.95,
 	},
 	searchbox__input: {
 		outline: 'none',

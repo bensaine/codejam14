@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { LocationContext } from '../contexts/LocationContext'
 import { MoveLeft } from 'lucide-react'
 
-const SearchPlaces = () => {
+const SearchPlaces = ({isPathLoading}) => {
 	const { setDestinationLocation } = useContext(LocationContext)
 	const { placesService, placePredictions, getPlacePredictions } =
 		usePlacesService({
@@ -64,6 +64,7 @@ const SearchPlaces = () => {
 										style={styles.backButton}
 										onClick={() => {
 											setSelectedPlace(null)
+											setDestinationLocation(null)
 											setShowResults(true)
 										}}
 									>
@@ -77,6 +78,7 @@ const SearchPlaces = () => {
 										setDestinationLocation([lat(), lng()])
 									}}
 								/>
+								{isPathLoading && <p>Loading path...</p>}
 							</div>
 						)}
 					</div>
@@ -106,6 +108,7 @@ const styles = {
 		borderRadius: '2em',
 		overflow: 'hidden',
 		position: 'relative',
+		opacity: 0.95
 	},
 	backButton: {
 		background: 'none',

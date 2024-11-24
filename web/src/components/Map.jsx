@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useMemo } from 'react'
 import {
 	MapContainer,
 	TileLayer,
@@ -17,7 +17,7 @@ import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/actes-criminels.json'
 import MapCenter from './MapCenter.jsx'
 
-const MapView = ({ theme, isOpenHeatmap }) => {
+const MapView = ({ theme, isOpenHeatmap, setIsPathLoading }) => {
 	const { sourceLocation, destinationLocation } = useContext(LocationContext)
 
 	useEffect(() => {
@@ -33,6 +33,19 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 
 	const [safePoints, setSafePoints] = useState([])
 	const [dangerousPoints, setDangerousPoints] = useState([])
+
+	useEffect(() => {
+		if (!setIsPathLoading) return
+
+		if (
+			!!destinationLocation &&
+			(safePoints.length === 0 || dangerousPoints.length === 0)
+		) {
+			setIsPathLoading(true)
+		} else {
+			setIsPathLoading(false)
+		}
+	}, [destinationLocation, safePoints, dangerousPoints, setIsPathLoading])
 
 	const fetchWaypointsList = (src, dest) => {
 		fetch(api, {
@@ -86,7 +99,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 			style={{ height: '100%', width: '100%' }}
 		>
 			<LocateControl options={locateOptions} startDirectly={true} />
-      {destinationLocation && <MapCenter center={destinationLocation}/>}
+			{destinationLocation && <MapCenter center={destinationLocation} />}
 			{isOpenHeatmap && (
 				<HeatmapLayer
 					points={addressPoints}

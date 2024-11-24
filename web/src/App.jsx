@@ -8,11 +8,13 @@ import MapView from './components/Map.jsx'
 import { APIProvider } from '@vis.gl/react-google-maps'
 import LocationProvider from './components/LocationProvider.jsx'
 import Theme from './components/Theme.jsx'
-import { Map } from 'lucide-react'
+import { Map as MapIcon } from 'lucide-react'
 
 function App() {
 	const [theme, setTheme] = useState('rastertiles/voyager')
 	const [isOpenHeatmap, setIsOpenHeatmap] = useState(true)
+	const [isPathLoading, setIsPathLoading] = useState(false)
+
 	return (
 		<APIProvider apiKey="">
 			<LocationProvider>
@@ -31,18 +33,22 @@ function App() {
 								zIndex: 1000,
 							}}
 						>
-							<SearchPlaces></SearchPlaces>
+							<SearchPlaces isPathLoading={isPathLoading}></SearchPlaces>
 						</div>
-						<MapView theme={theme} isOpenHeatmap={isOpenHeatmap} />
+						<MapView
+							theme={theme}
+							isOpenHeatmap={isOpenHeatmap}
+							setIsPathLoading={setIsPathLoading}
+						/>
 					</div>
 					<div className="themeContainer">
 						<div className="map-background">
-							<Map
+							<MapIcon
 								className="mapToggle"
 								onClick={() => {
 									setIsOpenHeatmap(!isOpenHeatmap)
 								}}
-							></Map>
+							></MapIcon>
 						</div>
 						<div>
 							<Theme setTheme={setTheme} />
