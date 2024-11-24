@@ -11,7 +11,6 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import L, { geoJson } from 'leaflet'
 import 'leaflet-defaulticon-compatibility'
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3'
-// import geoJsonData from '../assets/actes-criminels.json'
 import LocateControl from './LocateControl.jsx'
 import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/points.json'
