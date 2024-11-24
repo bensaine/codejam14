@@ -16,6 +16,7 @@ import { LocationContext } from '../contexts/LocationContext.jsx'
 import geoJsonData from '../assets/points.json'
 import MapCenter from './MapCenter.jsx'
 import TimeDistance from './TimeDistance.jsx'
+import Directions from './Directions.jsx'
 
 const MapView = ({ theme, isOpenHeatmap }) => {
 	const {
@@ -33,6 +34,8 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 		setSafeDistance,
 		dangerousDistance,
 		setDangerousDistance,
+		directions,
+		setDirections,
 		isPathLoading,
 	} = useContext(LocationContext)
 
@@ -66,8 +69,8 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				setDangerousDistance(data.dangerous[1])
 				setSafeTime(data.safe[2])
 				setDangerousTime(data.dangerous[2])
-				console.log(safeTime)
-				console.log(data.safe[2])
+				setDirections(data.safe[3].map((item) => item.message))
+				console.log(directions)
 			})
 			.catch((error) => console.error('Error fetching waypoints:', error))
 	}
@@ -135,7 +138,6 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 				radius={20}
 				gradient={{ 0.2: 'yellow', 0.3: 'orange', 0.5: '#ff00004f' }}
 			/>
-
 			{dangerousPath && (
 				<Polyline
 					positions={dangerousPath}
@@ -171,6 +173,7 @@ const MapView = ({ theme, isOpenHeatmap }) => {
 					dangerousDistance={dangerousDistance}
 				></TimeDistance>
 			)}
+			{showTimeDistance && <Directions directions={directions}></Directions>}
 			<TileLayer
 				url={`https://{s}.basemaps.cartocdn.com/${theme}/{z}/{x}/{y}{r}.png`}
 				attribution='&copy; <a href="https://www.carto.com/">CARTO</a> contributors'
