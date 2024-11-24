@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react' // Importing icons
+import { ChevronDown, ChevronUp, ArrowLeft, LandPlot, Compass } from 'lucide-react' // Importing icons
 import './Directions.css'
 
 const Directions = ({ directions }) => {
@@ -11,7 +11,18 @@ const Directions = ({ directions }) => {
 		<div className={`directions-container ${isExpanded ? 'expanded' : ''}`}>
 			<div className="header">
 				{/* Back Button */}
-				<p>DIRECTIONS</p>
+				<span
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						gap: '0.5em',
+						fontSize: '1.25em',
+						fontWeight: '600',
+					}}
+				>
+					DIRECTIONS <Compass size={20} />
+				</span>
 				{/* Expand/Collapse Button */}
 				<button
 					className="expand-button"
